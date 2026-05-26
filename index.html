@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Surprise for Prachi 💖</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700&family=Pacifico&display=swap');
+*{box-sizing:border-box;}
+body{margin:0;padding:0;background:#ffe6ea;background-image:radial-gradient(#ffb6c1 10%,transparent 11%),radial-gradient(#ffb6c1 10%,transparent 11%);background-size:30px 30px;background-position:0 0,15px 15px;font-family:'Nunito',sans-serif;display:flex;justify-content:center;align-items:center;min-height:100vh;overflow-x:hidden;text-align:center;}
+.container{background:rgba(255,255,255,0.95);padding:28px;border-radius:25px;box-shadow:0 10px 40px rgba(255,105,180,0.4);width:90%;max-width:400px;position:relative;border:4px dashed #ff99cc;overflow:hidden;}
+.scene{display:none;animation:popIn 0.45s cubic-bezier(0.175,0.885,0.32,1.275);}
+.active{display:block;}
+@keyframes popIn{0%{transform:scale(0.82);opacity:0;}100%{transform:scale(1);opacity:1;}}
+h1,h2{color:#ff1493;font-family:'Pacifico',cursive;margin-bottom:12px;}
+.btn{background:#ff69b4;color:white;border:none;padding:10px 22px;font-size:17px;border-radius:20px;cursor:pointer;margin:5px;font-family:'Nunito',sans-serif;transition:transform 0.15s,background 0.15s,box-shadow 0.15s;box-shadow:0 4px 10px rgba(255,105,180,0.3);}
+.btn:hover{transform:scale(1.08);background:#ff1493;box-shadow:0 6px 18px rgba(255,20,147,0.4);}
+.btn:active{transform:scale(0.93);}
+
+/* SCARE — no text, pointer-events none, auto 2s */
+#scare-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:9999;pointer-events:none;}
+#scare-overlay img{width:78%;max-width:300px;position:absolute;top:14%;left:11%;animation:jumpScare 0.5s infinite alternate;}
+@keyframes jumpScare{0%{transform:scale(1) rotate(-5deg);}100%{transform:scale(1.12) rotate(5deg);}}
+
+/* floating hearts scene 1 */
+.hf{position:absolute;pointer-events:none;font-size:18px;animation:hRise 3.5s ease-in infinite;opacity:0;}
+@keyframes hRise{0%{transform:translateY(0) scale(0.5);opacity:0;}15%{opacity:0.75;}85%{opacity:0.2;}100%{transform:translateY(-130px) scale(1.1) rotate(15deg);opacity:0;}}
+
+.photo-frame{width:130px;height:130px;border:4px solid #ff1493;border-radius:50%;object-fit:cover;margin:0 auto 12px auto;display:block;box-shadow:0 5px 15px rgba(255,20,147,0.4);}
+.drag-container{display:flex;align-items:center;justify-content:center;margin-top:18px;animation:dragCake 3s forwards ease-in-out;}
+@keyframes dragCake{0%{transform:translateX(150px);}25%{transform:translateX(100px) rotate(-10deg);}50%{transform:translateX(60px) rotate(10deg);}75%{transform:translateX(30px) rotate(-5deg);}100%{transform:translateX(0);}}
+.miniature{font-size:60px;display:inline-block;}
+.speech-bubble{background:white;border:2px solid #ff1493;padding:5px 10px;border-radius:15px;font-size:13px;color:#ff1493;position:absolute;top:-50px;left:-25px;font-weight:bold;width:180px;}
+.flower-gift{font-size:60px;display:inline-block;animation:flowerPop 0.6s cubic-bezier(0.175,0.885,0.32,1.275) forwards;}
+@keyframes flowerPop{0%{transform:scale(0) rotate(-30deg);opacity:0;}60%{transform:scale(1.2) rotate(10deg);opacity:1;}100%{transform:scale(1) rotate(0);opacity:1;}}
+
+/* scene4 bounce */
+@keyframes confBounce{0%,100%{transform:scale(1);}50%{transform:scale(1.18) rotate(6deg);}}
+#scene4 h2{animation:confBounce 0.9s ease-in-out infinite;}
+
+/* slides */
+.slide{display:none;}
+.slide.active{display:block;animation:slideIn 0.32s cubic-bezier(0.175,0.885,0.32,1.275);}
+@keyframes slideIn{0%{transform:scale(0.9) translateY(8px);opacity:0;}100%{transform:scale(1) translateY(0);opacity:1;}}
+.next-chibi-btn{background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;margin:10px auto 4px;animation:pulse 1.4s ease-in-out infinite alternate;}
+@keyframes pulse{from{transform:scale(1);}to{transform:scale(1.06);}}
+.next-label{font-family:'Pacifico',cursive;font-size:13px;color:#ff1493;}
+.arr{animation:arrBounce 0.55s ease-in-out infinite alternate;}
+@keyframes arrBounce{from{transform:translateX(0);}to{transform:translateX(6px);}}
+
+/* IT'S OVER */
+#over-page{position:relative;padding:10px 6px 14px;background:linear-gradient(135deg,#fff0f5,#ffe4f0,#fff8e7);border-radius:20px;overflow:hidden;}
+#over-page::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(255,100,180,0.12),transparent 70%);pointer-events:none;}
+.roses{display:flex;justify-content:center;gap:3px;margin:5px 0;font-size:21px;animation:roseF 3s ease-in-out infinite alternate;}
+@keyframes roseF{from{transform:translateY(0);}to{transform:translateY(-5px);}}
+.over-title{font-family:'Pacifico',cursive;font-size:25px;background:linear-gradient(135deg,#ff1493,#ff69b4,#ff8c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin:6px 0 3px;animation:brightPulse 2s ease-in-out infinite alternate;}
+@keyframes brightPulse{from{filter:brightness(1);}to{filter:brightness(1.3);}}
+.hearts-row{font-size:17px;letter-spacing:3px;margin:3px 0;animation:hbeat 1.2s ease-in-out infinite alternate;}
+@keyframes hbeat{from{transform:scale(1);}to{transform:scale(1.1);}}
+.guldasta{font-size:27px;margin:5px 0;animation:gSwing 4s ease-in-out infinite alternate;}
+@keyframes gSwing{from{transform:rotate(-5deg) scale(1);}to{transform:rotate(5deg) scale(1.05);}}
+.wish-card{margin:7px auto;background:rgba(255,255,255,0.85);border:2px solid #ffb6d9;border-radius:14px;padding:9px 13px;font-size:13px;line-height:1.65;color:#c2185b;font-weight:700;box-shadow:0 4px 16px rgba(255,105,180,0.18);position:relative;}
+.wish-card::before{content:'✨';position:absolute;top:-11px;left:50%;transform:translateX(-50%);font-size:18px;}
+.pills{display:flex;flex-wrap:wrap;justify-content:center;gap:5px;margin:6px 0;}
+.pill{color:white;border-radius:18px;padding:3px 11px;font-size:11px;font-weight:800;box-shadow:0 3px 8px rgba(255,20,147,0.28);animation:pillF 2s ease-in-out infinite alternate;}
+.pill:nth-child(1){background:linear-gradient(135deg,#ff69b4,#ff1493);}
+.pill:nth-child(2){background:linear-gradient(135deg,#f97316,#ef4444);animation-delay:.3s;}
+.pill:nth-child(3){background:linear-gradient(135deg,#8b5cf6,#ec4899);animation-delay:.6s;}
+.pill:nth-child(4){background:linear-gradient(135deg,#06b6d4,#3b82f6);animation-delay:.9s;}
+.pill:nth-child(5){background:linear-gradient(135deg,#10b981,#059669);animation-delay:1.2s;}
+@keyframes pillF{from{transform:translateY(0);}to{transform:translateY(-4px);}}
+.over-sign{font-size:12px;color:#ff69b4;font-weight:800;font-style:italic;border-top:1px dashed #ffb6d9;padding-top:7px;margin-top:7px;}
+.suit-line{margin-top:9px;padding:8px 13px;background:linear-gradient(135deg,#ff1493,#ff69b4);border-radius:13px;color:white;font-weight:900;font-size:13px;box-shadow:0 4px 14px rgba(255,20,147,0.38);letter-spacing:0.4px;}
+.couple-row{display:flex;justify-content:center;align-items:flex-end;gap:3px;margin:8px 0;}
+.stickers{display:flex;flex-wrap:wrap;justify-content:center;gap:7px;margin:6px 0;}
+.stk{display:flex;flex-direction:column;align-items:center;font-size:10px;color:#ff69b4;font-weight:800;gap:2px;}
+
+/* ANGER BUBBLE — empty + hidden by default, JS only */
+#anger-bub{display:none;text-align:center;margin-bottom:8px;}
+#anger-bub .ab-inner{display:inline-block;background:white;border:2.5px solid #ef4444;border-radius:12px;padding:7px 18px;font-size:13px;font-weight:900;color:#ef4444;box-shadow:0 4px 14px rgba(239,68,68,0.22);position:relative;}
+#anger-bub .ab-inner::before{content:'';position:absolute;bottom:-12px;left:50%;transform:translateX(-50%);border-width:12px 10px 0;border-style:solid;border-color:#ef4444 transparent transparent;}
+#anger-bub .ab-inner::after{content:'';position:absolute;bottom:-9px;left:50%;transform:translateX(-50%);border-width:9px 8px 0;border-style:solid;border-color:white transparent transparent;}
+@keyframes bubblePop{0%{transform:scale(0) translateY(8px);opacity:0;}65%{transform:scale(1.12) translateY(-2px);}100%{transform:scale(1) translateY(0);opacity:1;}}
+#anger-bub.show{animation:bubblePop 0.28s cubic-bezier(0.175,0.885,0.32,1.275) forwards;}
+@keyframes cShake{0%,100%{transform:translateX(0);}20%{transform:translateX(-7px);}40%{transform:translateX(7px);}60%{transform:translateX(-4px);}80%{transform:translateX(4px);}}
+.c-shake{animation:cShake 0.42s ease-out;}
+
+/* SCENE 7 */
+#scene7{padding:0 !important;}
+#s7wrap{width:100%;}
+#s7wrap h2{color:#ff1493;font-family:'Pacifico',cursive;margin:0;padding:11px 14px 0;font-size:1.05em;}
+#s7wrap .love-code{color:#ff1493;font-weight:bold;font-size:20px;margin:4px 0;animation:loveCodePulse 1.5s ease-in-out infinite alternate;}
+@keyframes loveCodePulse{0%,100%{transform:scale(1);}50%{transform:scale(1.1);}}
+#s7wrap .open-btn{background:#ff69b4;color:white;border:none;padding:10px 20px;font-size:17px;border-radius:20px;cursor:pointer;margin:5px 5px 14px;font-family:'Nunito',sans-serif;transition:transform 0.15s,background 0.15s;box-shadow:0 4px 10px rgba(255,105,180,0.3);}
+#s7wrap .open-btn:hover{transform:scale(1.08);background:#ff1493;}
+#open-letter-area{display:none;}
+#chibi-stage{width:100%;aspect-ratio:16/9;position:relative;background:#090d16;overflow:hidden;}
+.chibi-char{will-change:left,bottom,transform;filter:drop-shadow(0 8px 16px rgba(0,0,0,0.4));pointer-events:none;position:absolute;}
+.cbubble{position:absolute;background:rgba(255,255,255,0.97);color:#0f172a;border-radius:11px;padding:4px 11px;font-size:11px;font-weight:800;box-shadow:0 8px 20px rgba(0,0,0,0.22);pointer-events:none;z-index:50;border:1.5px solid rgba(236,72,153,0.35);transform:translate(-50%,-100%);font-family:'Nunito',sans-serif;transition:opacity 0.12s;white-space:nowrap;}
+.cbubble::after{content:'';position:absolute;bottom:-7px;left:50%;transform:translateX(-50%);border-width:7px 7px 0;border-style:solid;border-color:rgba(255,255,255,0.97) transparent;display:block;width:0;}
+.screen-kiss{position:absolute;inset:0;z-index:55;pointer-events:none;opacity:0;transition:opacity 0.08s;}
+.screen-kiss .km{position:absolute;left:50%;top:47%;transform:translate(-50%,-50%) scale(0.75) rotate(-8deg);font-size:48px;filter:drop-shadow(0 0 18px rgba(244,63,94,0.9));animation:kPulse 0.85s ease-out infinite alternate;}
+.screen-kiss .kh{position:absolute;color:#fb7185;font-weight:900;animation:kFloat 0.9s ease-out infinite;}
+.screen-kiss .kh1{left:40%;top:34%;font-size:22px;}.screen-kiss .kh2{left:58%;top:31%;font-size:18px;animation-delay:.12s;}.screen-kiss .kh3{left:52%;top:61%;font-size:16px;animation-delay:.24s;}
+@keyframes kPulse{from{transform:translate(-50%,-50%) scale(0.75) rotate(-8deg);}to{transform:translate(-50%,-50%) scale(1.05) rotate(5deg);}}
+@keyframes kFloat{0%{transform:translateY(12px) scale(0.7) rotate(-10deg);opacity:0;}35%{opacity:1;}100%{transform:translateY(-28px) scale(1.2) rotate(12deg);opacity:0;}}
+.kick-lbl{position:absolute;z-index:58;opacity:0;pointer-events:none;padding:3px 9px;border-radius:999px;background:linear-gradient(135deg,#facc15,#f97316,#ef4444);color:#111827;border:2px solid rgba(255,255,255,0.9);font-family:'Nunito',sans-serif;font-size:17px;font-weight:900;filter:drop-shadow(0 5px 10px rgba(0,0,0,0.4));transform:rotate(-12deg) scale(0.9);}
+.impact-burst{position:absolute;z-index:59;opacity:0;pointer-events:none;left:49%;top:52%;width:18%;aspect-ratio:1;transform:translate(-50%,-50%) scale(0.45);background:conic-gradient(from 0deg,#fff 0 8deg,transparent 8deg 18deg,#facc15 18deg 28deg,transparent 28deg 40deg,#fb7185 40deg 50deg,transparent 50deg 68deg);clip-path:polygon(50% 0%,60% 36%,98% 18%,68% 48%,100% 60%,62% 62%,82% 100%,50% 70%,18% 100%,38% 62%,0% 60%,32% 48%,2% 18%,40% 36%);filter:drop-shadow(0 0 20px rgba(250,204,21,0.95));}
+.impact-burst span{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#111827;font-size:12px;font-weight:900;transform:rotate(-8deg);}
+.speed-lines{position:absolute;inset:0;z-index:44;opacity:0;pointer-events:none;background:linear-gradient(100deg,transparent 0 56%,rgba(255,255,255,0.7) 57%,transparent 59%),linear-gradient(100deg,transparent 0 62%,rgba(6,182,212,0.55) 63%,transparent 65%),linear-gradient(100deg,transparent 0 69%,rgba(250,204,21,0.55) 70%,transparent 72%);}
+.fade-ov{position:absolute;inset:0;background:black;pointer-events:none;z-index:60;opacity:0;transition:opacity 0.3s;}
+</style>
+</head>
+<body>
+
+<div id="scare-overlay">
+  <img src="https://i.ibb.co/v47x2bQL/1000074762-removebg-preview.png" alt="">
+</div>
+
+<div class="container">
+
+<!-- SCENE 1 -->
+<div id="scene1" class="scene active" style="position:relative;overflow:hidden;">
+  <span class="hf" style="left:8%;top:65%;animation-delay:0s;">💕</span>
+  <span class="hf" style="left:82%;top:60%;animation-delay:1s;">❤️</span>
+  <span class="hf" style="left:48%;top:72%;animation-delay:2s;">💖</span>
+  <span class="hf" style="left:22%;top:58%;animation-delay:2.8s;">💗</span>
+  <h1>You want a surprise? 🎁</h1>
+  <div style="display:flex;justify-content:center;margin-bottom:16px;">
+    <svg viewBox="0 0 100 120" style="width:85px;height:auto;filter:drop-shadow(0 6px 14px rgba(255,20,147,0.3));">
+      <ellipse cx="50" cy="114" rx="20" ry="5" fill="rgba(0,0,0,0.2)"/>
+      <path d="M28,45C28,26 72,26 72,45C72,55 65,65 50,65C35,65 28,55 28,45Z" fill="#2d1910"/>
+      <rect x="30" y="74" width="40" height="30" rx="10" fill="#f59e0b"/>
+      <rect x="36" y="100" width="12" height="15" fill="#374151"/><rect x="52" y="100" width="12" height="15" fill="#374151"/>
+      <ellipse cx="42" cy="114" rx="9" ry="4.5" fill="#111827"/><ellipse cx="58" cy="114" rx="9" ry="4.5" fill="#111827"/>
+      <circle cx="50" cy="53" r="22" fill="#ffdec2"/>
+      <path d="M25,42C32,30 45,33 50,36C55,33 68,30 75,42C68,40 58,38 50,42C42,38 32,40 25,42Z" fill="#2d1910"/>
+      <path d="M32,42Q38,40 44,43" fill="none" stroke="#2d1910" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M56,41Q62,38 68,41" fill="none" stroke="#2d1910" stroke-width="2.5" stroke-linecap="round"/>
+      <circle cx="59" cy="53" r="3.5" fill="#0f172a"/><circle cx="60" cy="51.5" r="1.2" fill="#fff"/>
+      <path d="M35,53C38,56.5 44,56.5 47,53" fill="none" stroke="#0f172a" stroke-width="3" stroke-linecap="round"/>
+      <path d="M44,61Q51,58 55,63" fill="none" stroke="#1e293b" stroke-width="2.3" stroke-linecap="round"/>
+      <circle cx="65" cy="62" r="5" fill="#ef4444" opacity="0.28"/>
+      <rect x="28" y="70" width="44" height="8" rx="4" fill="#1d4ed8"/><rect x="33" y="76" width="10" height="18" rx="2" fill="#1e40af"/>
+      <path d="M29,35C29,14 71,14 71,35Z" fill="#1d4ed8"/>
+      <rect x="24" y="31" width="52" height="9" rx="4.5" fill="#f8fafc"/><circle cx="50" cy="14" r="8" fill="#f8fafc"/>
+    </svg>
+  </div>
+  <button class="btn" onclick="startExp(true)">YES 😍</button>
+  <button class="btn" onclick="startExp(false)">NO 😒</button>
+</div>
+
+<!-- SCENE 2 -->
+<div id="scene2" class="scene">
+  <h2>HELLO CUTIE!<br>WHO I AM? 🤔</h2>
+  <div id="anger-bub"><span class="ab-inner" id="anger-txt"></span></div>
+  <div style="display:flex;justify-content:center;margin-bottom:14px;">
+    <svg id="s2svg" viewBox="0 0 100 120" style="width:80px;height:auto;filter:drop-shadow(0 6px 12px rgba(0,0,0,0.22));">
+      <ellipse cx="50" cy="114" rx="20" ry="5" fill="rgba(0,0,0,0.2)"/>
+      <path d="M28,45C28,26 72,26 72,45C72,55 65,65 50,65C35,65 28,55 28,45Z" fill="#2d1910"/>
+      <rect x="30" y="74" width="40" height="30" rx="10" fill="#f59e0b"/>
+      <rect x="36" y="100" width="12" height="15" fill="#374151"/><rect x="52" y="100" width="12" height="15" fill="#374151"/>
+      <ellipse cx="42" cy="114" rx="9" ry="4.5" fill="#111827"/><ellipse cx="58" cy="114" rx="9" ry="4.5" fill="#111827"/>
+      <circle cx="50" cy="53" r="22" fill="#ffdec2"/>
+      <path d="M25,42C32,30 45,33 50,36C55,33 68,30 75,42C68,40 58,38 50,42C42,38 32,40 25,42Z" fill="#2d1910"/>
+      <path id="eb-l" d="M32,45Q38,40 44,44" fill="none" stroke="#2d1910" stroke-width="2.5" stroke-linecap="round"/>
+      <path id="eb-r" d="M56,42Q62,39 68,43" fill="none" stroke="#2d1910" stroke-width="2.5" stroke-linecap="round"/>
+      <circle cx="77" cy="38" r="2.5" fill="#2d1910" opacity="0.55"/>
+      <circle cx="82" cy="33" r="2" fill="#2d1910" opacity="0.35"/>
+      <circle cx="86" cy="28" r="1.5" fill="#2d1910" opacity="0.18"/>
+      <circle id="ey-l" cx="41" cy="53" r="3.5" fill="#0f172a"/>
+      <circle id="ey-r" cx="59" cy="53" r="3.5" fill="#0f172a"/>
+      <circle cx="42" cy="51.5" r="1.2" fill="#fff"/><circle cx="60" cy="51.5" r="1.2" fill="#fff"/>
+      <circle cx="34" cy="62" r="4.5" fill="#ef4444" opacity="0.18"/>
+      <path id="mo" d="M46,62Q50,65 54,62" fill="none" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/>
+      <rect x="28" y="70" width="44" height="8" rx="4" fill="#1d4ed8"/><rect x="33" y="76" width="10" height="18" rx="2" fill="#1e40af"/>
+      <path d="M29,35C29,14 71,14 71,35Z" fill="#1d4ed8"/>
+      <rect x="24" y="31" width="52" height="9" rx="4.5" fill="#f8fafc"/><circle cx="50" cy="14" r="8" fill="#f8fafc"/>
+    </svg>
+  </div>
+  <button class="btn" onclick="wrongPass()">BANDAR 🐒</button>
+  <button class="btn" onclick="rightPass()">GAWAR 🤓</button>
+</div>
+
+<!-- SCENE 3 -->
+<div id="scene3" class="scene">
+  <a href="https://ibb.co/C3S3Q0z9">
+    <img src="https://i.ibb.co/bMGMXdPv/IMG-20260524-WA0014-2.jpg" alt="Prachi" class="photo-frame" border="0">
+  </a>
+  <div style="position:relative;">
+    <div class="drag-container">
+      <div style="position:relative;">
+        <span class="speech-bubble" id="blow-msg">HAPPY BIRTHDAY PRACHI 🎂<br>24 MAY 2026</span>
+        <svg id="cake-boy" viewBox="0 0 100 120" style="width:55px;height:auto;display:inline-block;vertical-align:bottom;filter:drop-shadow(0 4px 8px rgba(0,0,0,0.2));transform:scaleX(-1);transition:transform 0.7s ease;">
+          <ellipse cx="50" cy="114" rx="20" ry="5" fill="rgba(0,0,0,0.18)"/>
+          <path d="M28,45C28,26 72,26 72,45C72,55 65,65 50,65C35,65 28,55 28,45Z" fill="#2d1910"/>
+          <rect x="30" y="74" width="40" height="30" rx="10" fill="#f59e0b"/>
+          <rect x="36" y="100" width="12" height="15" fill="#374151"/><rect x="52" y="100" width="12" height="15" fill="#374151"/>
+          <ellipse cx="42" cy="114" rx="9" ry="4.5" fill="#111827"/><ellipse cx="58" cy="114" rx="9" ry="4.5" fill="#111827"/>
+          <circle cx="50" cy="53" r="22" fill="#ffdec2"/>
+          <path d="M25,42C32,30 45,33 50,36C55,33 68,30 75,42C68,40 58,38 50,42C42,38 32,40 25,42Z" fill="#2d1910"/>
+          <path d="M32,42Q38,39 44,42" fill="none" stroke="#2d1910" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M56,42Q62,39 68,42" fill="none" stroke="#2d1910" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="41" cy="53" r="3.8" fill="#0f172a"/><circle cx="59" cy="53" r="3.8" fill="#0f172a"/>
+          <circle cx="42.5" cy="51" r="1.4" fill="#fff"/><circle cx="60.5" cy="51" r="1.4" fill="#fff"/>
+          <path d="M43,59Q50,67 57,59Z" fill="#6b1818"/>
+          <circle cx="34" cy="62" r="5" fill="#ef4444" opacity="0.38"/><circle cx="66" cy="62" r="5" fill="#ef4444" opacity="0.38"/>
+          <rect x="28" y="70" width="44" height="8" rx="4" fill="#1d4ed8"/><rect x="33" y="76" width="10" height="18" rx="2" fill="#1e40af"/>
+          <path d="M29,35C29,14 71,14 71,35Z" fill="#1d4ed8"/>
+          <rect x="24" y="31" width="52" height="9" rx="4.5" fill="#f8fafc"/><circle cx="50" cy="14" r="8" fill="#f8fafc"/>
+        </svg>
+      </div>
+      <span class="miniature" id="the-cake" style="cursor:pointer;" onclick="blowCandle()">🎂<span id="candle" style="position:absolute;top:-20px;left:20px;font-size:28px;">🕯️</span></span>
+    </div>
+    <p id="blow-hint" style="color:#ff69b4;font-size:13px;font-weight:bold;margin-top:8px;opacity:0;transition:opacity 1s;">Tap the cake to blow! 🎂</p>
+  </div>
+</div>
+
+<!-- SCENE 4 -->
+<div id="scene4" class="scene">
+  <h2 style="font-size:48px;">🎉🎊</h2>
+  <p style="font-size:15px;font-style:italic;color:#555;">"Sorry late ho gya... 😅<br>HEY JANU YRR YE JALDI ME BNAYA HAI OR SORRY YRR ITNA KHRB KRA SAB BS YE CHOTA SA GIFT JO BANA PAYA ME... BS HAPPY BIRTHDAY JANE JIGARR ❤️"</p>
+  <button class="btn" onclick="goScene(5)">My Gift? 🎁</button>
+</div>
+
+<!-- SCENE 5 -->
+<div id="scene5" class="scene">
+  <div style="display:flex;justify-content:center;margin-bottom:10px;">
+    <svg viewBox="0 0 100 120" style="width:80px;height:auto;">
+      <ellipse cx="50" cy="114" rx="20" ry="5" fill="rgba(0,0,0,0.18)"/>
+      <path d="M28,45C28,26 72,26 72,45C72,55 65,65 50,65C35,65 28,55 28,45Z" fill="#2d1910"/>
+      <rect x="30" y="74" width="40" height="30" rx="10" fill="#f59e0b"/>
+      <rect x="36" y="100" width="12" height="15" fill="#374151"/><rect x="52" y="100" width="12" height="15" fill="#374151"/>
+      <ellipse cx="42" cy="114" rx="9" ry="4.5" fill="#111827"/><ellipse cx="58" cy="114" rx="9" ry="4.5" fill="#111827"/>
+      <circle cx="50" cy="53" r="22" fill="#ffdec2"/>
+      <path d="M25,42C32,30 45,33 50,36C55,33 68,30 75,42C68,40 58,38 50,42C42,38 32,40 25,42Z" fill="#2d1910"/>
+      <path d="M30,40Q38,34 44,39" fill="none" stroke="#2d1910" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M56,39Q62,34 70,40" fill="none" stroke="#2d1910" stroke-width="2.5" stroke-linecap="round"/>
+      <circle cx="41" cy="54" r="5.5" fill="#fff"/><circle cx="59" cy="54" r="5.5" fill="#fff"/>
+      <circle cx="41" cy="54" r="3.5" fill="#0f172a"/><circle cx="59" cy="54" r="3.5" fill="#0f172a"/>
+      <circle cx="42" cy="52" r="1.3" fill="#fff"/><circle cx="60" cy="52" r="1.3" fill="#fff"/>
+      <ellipse cx="26" cy="48" rx="2.5" ry="4" fill="#93c5fd" opacity="0.8"/>
+      <ellipse cx="74" cy="48" rx="2.5" ry="4" fill="#93c5fd" opacity="0.8"/>
+      <ellipse cx="50" cy="64" rx="5" ry="4" fill="#6b1818"/>
+      <circle cx="34" cy="62" r="5" fill="#ef4444" opacity="0.48"/><circle cx="66" cy="62" r="5" fill="#ef4444" opacity="0.48"/>
+      <rect x="28" y="70" width="44" height="8" rx="4" fill="#1d4ed8"/><rect x="33" y="76" width="10" height="18" rx="2" fill="#1e40af"/>
+      <path d="M29,35C29,14 71,14 71,35Z" fill="#1d4ed8"/>
+      <rect x="24" y="31" width="52" height="9" rx="4.5" fill="#f8fafc"/><circle cx="50" cy="14" r="8" fill="#f8fafc"/>
+    </svg>
+  </div>
+  <h2>Your gift...</h2>
+  <button class="btn" onclick="fakeGift()">Open it</button>
+</div>
+
+<!-- SCENE 6 -->
+<div id="scene6" class="scene">
+  <div style="display:flex;justify-content:center;align-items:flex-end;gap:8px;margin-bottom:10px;">
+    <svg viewBox="0 0 100 120" style="width:72px;height:auto;">
+      <ellipse cx="50" cy="114" rx="20" ry="5" fill="rgba(0,0,0,0.18)"/>
+      <path d="M28,45C28,26 72,26 72,45C72,55 65,65 50,65C35,65 28,55 28,45Z" fill="#2d1910"/>
+      <rect x="30" y="74" width="40" height="30" rx="10" fill="#f59e0b"/>
+      <rect x="68" y="76" width="18" height="10" rx="5" fill="#ffdec2" transform="rotate(-20,68,81)"/>
+      <rect x="36" y="100" width="12" height="15" fill="#374151"/><rect x="52" y="100" width="12" height="15" fill="#374151"/>
+      <ellipse cx="42" cy="114" rx="9" ry="4.5" fill="#111827"/><ellipse cx="58" cy="114" rx="9" ry="4.5" fill="#111827"/>
+      <circle cx="50" cy="53" r="22" fill="#ffdec2"/>
+      <path d="M25,42C32,30 45,33 50,36C55,33 68,30 75,42C68,40 58,38 50,42C42,38 32,40 25,42Z" fill="#2d1910"/>
+      <path d="M33,43Q38,41 44,43" fill="none" stroke="#2d1910" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M56,43Q62,41 67,43" fill="none" stroke="#2d1910" stroke-width="2.5" stroke-linecap="round"/>
+      <circle cx="41" cy="53" r="3.5" fill="#0f172a"/><circle cx="59" cy="53" r="3.5" fill="#0f172a"/>
+      <circle cx="42" cy="51.5" r="1.2" fill="#fff"/><circle cx="60" cy="51.5" r="1.2" fill="#fff"/>
+      <path d="M43,61Q50,67 57,61" fill="none" stroke="#1e293b" stroke-width="2.2" stroke-linecap="round"/>
+      <circle cx="34" cy="62" r="5.5" fill="#ef4444" opacity="0.38"/><circle cx="66" cy="62" r="5.5" fill="#ef4444" opacity="0.38"/>
+      <rect x="28" y="70" width="44" height="8" rx="4" fill="#1d4ed8"/><rect x="33" y="76" width="10" height="18" rx="2" fill="#1e40af"/>
+      <path d="M29,35C29,14 71,14 71,35Z" fill="#1d4ed8"/>
+      <rect x="24" y="31" width="52" height="9" rx="4.5" fill="#f8fafc"/><circle cx="50" cy="14" r="8" fill="#f8fafc"/>
+    </svg>
+    <div class="flower-gift" id="flower">🌷</div>
+  </div>
+  <h2>Yeh le tera real gift! 🌷</h2>
+  <p style="color:#ff69b4;font-size:14px;font-weight:bold;margin:4px 0;">Tere liye ek phool... 💕<br><small style="color:#aaa;">Real gift baad mein dunga 😅</small></p>
+  <button class="btn" onclick="goScene(7)">Thank you! 🥰</button>
+</div>
+
+<!-- SCENE 7: chibi animation -->
+<div id="scene7" class="scene">
+  <div id="s7wrap">
+    <h2>Happy Birthday Prachi! 🎉</h2>
+    <div id="chibi-stage">
+      <canvas id="bg-cv" style="position:absolute;inset:0;width:100%;height:100%;z-index:0;"></canvas>
+      <canvas id="fx-cv" style="position:absolute;inset:0;width:100%;height:100%;z-index:10;pointer-events:none;"></canvas>
+      <div id="cam" style="position:absolute;inset:0;width:100%;height:100%;z-index:5;transition:transform 0.1s ease-out;transform-origin:center;">
+        <div style="position:absolute;top:-15%;right:20%;width:60%;aspect-ratio:1;background:radial-gradient(circle,rgba(251,191,36,0.35),rgba(236,72,153,0.2),transparent 65%);border-radius:50%;filter:blur(20px);pointer-events:none;"></div>
+        <div style="position:absolute;bottom:0;left:0;right:0;height:22%;background:linear-gradient(to top,rgba(252,252,252,0.95),rgba(241,245,249,0.85),rgba(226,232,240,0.18));border-top:1px solid rgba(255,255,255,0.38);"></div>
+        <svg id="cb" class="chibi-char" viewBox="0 0 100 120" style="width:15%;height:auto;bottom:15%;left:-30%;">
+          <ellipse cx="50" cy="114" rx="20" ry="5" fill="rgba(0,0,0,0.22)"/>
+          <path d="M28,45C28,26 72,26 72,45C72,55 65,65 50,65C35,65 28,55 28,45Z" fill="#2d1910"/>
+          <rect x="30" y="74" width="40" height="30" rx="10" fill="#f59e0b"/>
+          <path d="M35,84Q50,90 65,84" fill="none" stroke="#d97706" stroke-width="2"/>
+          <rect x="36" y="100" width="12" height="15" fill="#374151"/><rect x="52" y="100" width="12" height="15" fill="#374151"/>
+          <ellipse cx="42" cy="114" rx="9" ry="4.5" fill="#111827"/><ellipse cx="58" cy="114" rx="9" ry="4.5" fill="#111827"/>
+          <circle cx="50" cy="53" r="22" fill="#ffdec2"/>
+          <path d="M25,42C32,30 45,33 50,36C55,33 68,30 75,42C68,40 58,38 50,42C42,38 32,40 25,42Z" fill="#2d1910"/>
+          <path id="bel" d="M32,44Q38,41 44,44" fill="none" stroke="#2d1910" stroke-width="2.5" stroke-linecap="round"/>
+          <path id="ber" d="M56,44Q62,41 68,44" fill="none" stroke="#2d1910" stroke-width="2.5" stroke-linecap="round"/>
+          <circle id="bel2" cx="41" cy="53" r="3.5" fill="#0f172a"/><circle id="ber2" cx="59" cy="53" r="3.5" fill="#0f172a"/>
+          <circle id="bhl" cx="42" cy="51.5" r="1.2" fill="#fff"/><circle id="bhr" cx="60" cy="51.5" r="1.2" fill="#fff"/>
+          <path id="bwink" d="M35,53C41,56 46,53 46,53" fill="none" stroke="#0f172a" stroke-width="3" stroke-linecap="round" style="display:none;"/>
+          <path id="bdl1" d="M37,49L45,57" fill="none" stroke="#0f172a" stroke-width="2.5" stroke-linecap="round" style="display:none;"/>
+          <path id="bdl2" d="M45,49L37,57" fill="none" stroke="#0f172a" stroke-width="2.5" stroke-linecap="round" style="display:none;"/>
+          <path id="bdr1" d="M55,49L63,57" fill="none" stroke="#0f172a" stroke-width="2.5" stroke-linecap="round" style="display:none;"/>
+          <path id="bdr2" d="M63,49L55,57" fill="none" stroke="#0f172a" stroke-width="2.5" stroke-linecap="round" style="display:none;"/>
+          <circle id="bbl" cx="34" cy="62" r="4.5" fill="#ef4444" opacity="0.18"/>
+          <circle id="bbr" cx="66" cy="62" r="4.5" fill="#ef4444" opacity="0.18"/>
+          <path id="bmo" d="M45,61Q50,65 55,61" fill="none" stroke="#1e293b" stroke-width="2.2" stroke-linecap="round"/>
+          <rect x="28" y="70" width="44" height="8" rx="4" fill="#1d4ed8"/><rect x="33" y="76" width="10" height="18" rx="2" fill="#1e40af"/>
+          <path d="M29,35C29,14 71,14 71,35Z" fill="#1d4ed8"/>
+          <rect x="24" y="31" width="52" height="9" rx="4.5" fill="#f8fafc"/><circle cx="50" cy="14" r="8" fill="#f8fafc"/>
+        </svg>
+        <svg id="cg" class="chibi-char" viewBox="0 0 100 120" style="width:15%;height:auto;bottom:15%;left:110%;">
+          <ellipse cx="50" cy="114" rx="20" ry="5" fill="rgba(0,0,0,0.22)"/>
+          <path d="M18,50Q8,80 18,102Q30,107 33,95C33,83 27,71 27,55Z" fill="#4a2711"/>
+          <path d="M82,50Q92,80 82,102Q70,107 67,95C67,83 73,71 73,55Z" fill="#4a2711"/>
+          <path d="M21,45C21,21 79,21 79,45C79,68 21,68 21,45Z" fill="#5c3116"/>
+          <path d="M32,74L68,74L74,98L26,98Z" fill="#fbbf24"/>
+          <rect x="23" y="95" width="54" height="6" rx="3" fill="#f8fafc"/>
+          <rect x="40" y="100" width="8" height="8" fill="#ffdec2"/><rect x="52" y="100" width="8" height="8" fill="#ffdec2"/>
+          <rect x="36" y="105" width="13" height="11" rx="2.5" fill="#06b6d4"/><rect x="51" y="105" width="13" height="11" rx="2.5" fill="#06b6d4"/>
+          <ellipse cx="42.5" cy="115" rx="7.5" ry="3" fill="#0891b2"/><ellipse cx="57.5" cy="115" rx="7.5" ry="3" fill="#0891b2"/>
+          <circle cx="50" cy="53" r="22" fill="#ffdec2"/>
+          <path d="M25,42C32,32 45,32 50,38C55,32 68,32 75,42C72,38 61,35 50,41C39,35 28,38 25,42Z" fill="#5c3116"/>
+          <rect x="28" y="36" width="7" height="3" rx="1.5" fill="#db2777" transform="rotate(-15,28,36)"/>
+          <path id="gel" d="M33,45Q39,42 44,45" fill="none" stroke="#5c3116" stroke-width="2" stroke-linecap="round"/>
+          <path id="ger" d="M56,45Q61,42 67,45" fill="none" stroke="#5c3116" stroke-width="2" stroke-linecap="round"/>
+          <path d="M34,48C37,45 42,45 44,49" fill="none" stroke="#111827" stroke-width="2" stroke-linecap="round"/>
+          <path d="M56,49C58,45 63,45 66,48" fill="none" stroke="#111827" stroke-width="2" stroke-linecap="round"/>
+          <circle id="gel2" cx="40" cy="53" r="3.5" fill="#0f172a"/><circle id="ger2" cx="60" cy="53" r="3.5" fill="#0f172a"/>
+          <circle cx="41.5" cy="51.5" r="1.1" fill="#fff"/><circle cx="61.5" cy="51.5" r="1.1" fill="#fff"/>
+          <path id="ghappy" d="M34,54Q40,50 44,54 M56,54Q60,50 66,54" fill="none" stroke="#0f172a" stroke-width="2.5" stroke-linecap="round" style="display:none;"/>
+          <circle id="gbl" cx="33" cy="62" r="6" fill="#f43f5e" opacity="0.45"/><circle id="gbr" cx="67" cy="62" r="6" fill="#f43f5e" opacity="0.45"/>
+          <path id="gmo" d="M46,61Q50,64 54,61" fill="none" stroke="#111827" stroke-width="2" stroke-linecap="round"/>
+          <path d="M26,60C26,56 31,56 31,60L31,67C31,69 26,69 26,67Z" fill="#06b6d4"/>
+          <path d="M74,60C74,56 69,56 69,60L69,67C69,69 74,69 74,67Z" fill="#06b6d4"/>
+          <rect x="28" y="70" width="44" height="8" rx="4" fill="#db2777"/><rect x="58" y="76" width="10" height="16" rx="2" fill="#be185d"/>
+          <path d="M29,35C29,14 71,14 71,35Z" fill="#db2777"/>
+          <rect x="24" y="31" width="52" height="9" rx="4.5" fill="#f8fafc"/><circle cx="50" cy="14" r="8" fill="#f8fafc"/>
+        </svg>
+        <svg id="kleg" style="position:absolute;pointer-events:none;width:20%;height:auto;bottom:15%;right:-25%;transform-origin:right center;z-index:45;display:none;" viewBox="0 0 100 50">
+          <rect x="40" y="15" width="60" height="20" fill="#ffdec2"/>
+          <rect x="15" y="10" width="35" height="30" rx="5" fill="#06b6d4"/>
+          <ellipse cx="32" cy="40" rx="18" ry="6" fill="#0891b2"/>
+        </svg>
+        <div id="bb" class="cbubble" style="opacity:0;left:24%;top:38%;">Hii...</div>
+        <div id="gb" class="cbubble" style="opacity:0;left:64%;top:38%;">Hii...</div>
+        <div id="sk" class="screen-kiss"><div class="km">💋</div><div class="kh kh1">❤</div><div class="kh kh2">❤</div><div class="kh kh3">❤</div></div>
+        <div id="sl" class="speed-lines"></div>
+        <div id="kl" class="kick-lbl">LAAT!</div>
+        <div id="ib" class="impact-burst"><span>DHAAAD!</span></div>
+        <div id="fo" class="fade-ov"></div>
+      </div>
+    </div>
+    <p class="love-code">5201314 💖</p>
+    <div id="open-letter-area">
+      <button class="open-btn" onclick="goScene(8)">Open Letter 💌</button>
+    </div>
+  </div>
+</div>
+
+<!-- SCENE 8 -->
+<div id="scene8" class="scene">
+  <div id="lv">
+    <h2>FINAL SURPRISE 🎁</h2>
+    <div style="display:flex;align-items:center;justify-content:center;gap:8px;">
+      <svg viewBox="0 0 100 120" style="width:52px;height:auto;filter:drop-shadow(0 4px 10px rgba(255,20,147,0.28));animation:pulse 1s ease-in-out infinite alternate;">
+        <ellipse cx="50" cy="114" rx="18" ry="4" fill="rgba(0,0,0,0.14)"/>
+        <path d="M28,45C28,26 72,26 72,45C72,55 65,65 50,65C35,65 28,55 28,45Z" fill="#2d1910"/>
+        <rect x="30" y="74" width="40" height="28" rx="10" fill="#f59e0b"/>
+        <rect x="36" y="98" width="12" height="14" fill="#374151"/><rect x="52" y="98" width="12" height="14" fill="#374151"/>
+        <ellipse cx="42" cy="111" rx="8" ry="4" fill="#111827"/><ellipse cx="58" cy="111" rx="8" ry="4" fill="#111827"/>
+        <circle cx="50" cy="53" r="22" fill="#ffdec2"/>
+        <path d="M25,42C32,30 45,33 50,36C55,33 68,30 75,42C68,40 58,38 50,42C42,38 32,40 25,42Z" fill="#2d1910"/>
+        <path d="M31,41Q38,38 44,42" fill="none" stroke="#2d1910" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M56,42Q62,38 68,41" fill="none" stroke="#2d1910" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="41" cy="53" r="4" fill="#0f172a"/><circle cx="59" cy="53" r="4" fill="#0f172a"/>
+        <circle cx="42.5" cy="51" r="1.5" fill="#fff"/><circle cx="60.5" cy="51" r="1.5" fill="#fff"/>
+        <path d="M42,59Q50,68 58,59Z" fill="#6b1818"/>
+        <circle cx="33" cy="62" r="5.5" fill="#ef4444" opacity="0.42"/><circle cx="67" cy="62" r="5.5" fill="#ef4444" opacity="0.42"/>
+        <rect x="28" y="70" width="44" height="8" rx="4" fill="#1d4ed8"/>
+        <path d="M29,35C29,14 71,14 71,35Z" fill="#1d4ed8"/>
+        <rect x="24" y="31" width="52" height="9" rx="4.5" fill="#f8fafc"/><circle cx="50" cy="14" r="8" fill="#f8fafc"/>
+      </svg>
+      <button class="btn" onclick="startGallery()">CHALO PGLI AAGE CHALE ➡️</button>
+    </div>
+  </div>
+  <div id="gv" style="display:none;">
+    <div id="sl1" class="slide active">
+      <p style="font-weight:800;color:#ff1493;">ME 😃</p>
+      <img src="https://i.ibb.co/MkKSxRD3/file-00000000ea9471fbbaac19c5b63bb8cd.png" style="width:200px;border-radius:14px;">
+      <button class="next-chibi-btn" onclick="nextSlide()">
+        <svg viewBox="0 0 100 120" style="width:44px;height:auto;flex-shrink:0;"><ellipse cx="50" cy="114" rx="18" ry="4" fill="rgba(0,0,0,0.13)"/><circle cx="50" cy="53" r="20" fill="#ffdec2"/><path d="M26,43C32,31 45,34 50,37C55,34 68,31 74,43Z" fill="#2d1910"/><path d="M33,43Q38,40 44,43" fill="none" stroke="#2d1910" stroke-width="2.2" stroke-linecap="round"/><path d="M56,43Q62,40 67,43" fill="none" stroke="#2d1910" stroke-width="2.2" stroke-linecap="round"/><circle cx="41" cy="53" r="3.5" fill="#0f172a"/><circle cx="59" cy="53" r="3.5" fill="#0f172a"/><circle cx="42" cy="51.5" r="1.2" fill="#fff"/><circle cx="60" cy="51.5" r="1.2" fill="#fff"/><path d="M43,60Q50,67 57,60Z" fill="#6b1818"/><circle cx="34" cy="61" r="4.5" fill="#ef4444" opacity="0.38"/><circle cx="66" cy="61" r="4.5" fill="#ef4444" opacity="0.38"/><rect x="30" y="70" width="40" height="25" rx="9" fill="#f59e0b"/><rect x="28" y="68" width="44" height="7" rx="3.5" fill="#1d4ed8"/><rect x="34" y="74" width="9" height="13" rx="2" fill="#1e40af"/></svg>
+        <div class="next-label">MERI PARTNER</div>
+        <svg class="arr" viewBox="0 0 24 24" style="width:22px;height:22px;fill:#ff1493;"><path d="M8 5l8 7-8 7V5z"/></svg>
+      </button>
+    </div>
+    <div id="sl2" class="slide">
+      <p style="font-weight:800;color:#ff1493;">MERI MADAM 🫂</p>
+      <img src="https://i.ibb.co/PvncgDT0/file-00000000725071fa9588ace64ae14796.png" style="width:200px;border-radius:14px;">
+      <button class="next-chibi-btn" onclick="nextSlide()">
+        <svg viewBox="0 0 100 120" style="width:44px;height:auto;flex-shrink:0;"><ellipse cx="50" cy="114" rx="18" ry="4" fill="rgba(0,0,0,0.13)"/><circle cx="50" cy="53" r="20" fill="#ffdec2"/><path d="M26,43C32,31 45,34 50,37C55,34 68,31 74,43Z" fill="#2d1910"/><path d="M33,43Q38,41 44,43" fill="none" stroke="#2d1910" stroke-width="2.2" stroke-linecap="round"/><path d="M56,43Q62,41 67,43" fill="none" stroke="#2d1910" stroke-width="2.2" stroke-linecap="round"/><circle cx="41" cy="53" r="3.5" fill="#0f172a"/><circle cx="59" cy="53" r="3.5" fill="#0f172a"/><circle cx="42" cy="51.5" r="1.2" fill="#fff"/><circle cx="60" cy="51.5" r="1.2" fill="#fff"/><path d="M44,61Q50,66 56,61" fill="none" stroke="#1e293b" stroke-width="2.2" stroke-linecap="round"/><circle cx="34" cy="62" r="5" fill="#ef4444" opacity="0.32"/><circle cx="66" cy="62" r="5" fill="#ef4444" opacity="0.32"/><rect x="30" y="70" width="40" height="25" rx="9" fill="#f59e0b"/><rect x="28" y="68" width="44" height="7" rx="3.5" fill="#1d4ed8"/></svg>
+        <div class="next-label">SAKUUN 🕊️</div>
+        <svg class="arr" viewBox="0 0 24 24" style="width:22px;height:22px;fill:#ff1493;"><path d="M8 5l8 7-8 7V5z"/></svg>
+      </button>
+    </div>
+    <div id="sl3" class="slide">
+      <p style="font-weight:800;color:#ff1493;">WE 😗</p>
+      <img src="https://i.ibb.co/n8jPMjp0/file-000000002e0072098ce6a08862bf9aed.png" style="width:200px;border-radius:14px;">
+      <button class="next-chibi-btn" onclick="nextSlide()">
+        <svg viewBox="0 0 100 120" style="width:44px;height:auto;flex-shrink:0;"><ellipse cx="50" cy="114" rx="18" ry="4" fill="rgba(0,0,0,0.13)"/><circle cx="50" cy="53" r="20" fill="#ffdec2"/><path d="M26,43C32,31 45,34 50,37C55,34 68,31 74,43Z" fill="#2d1910"/><path d="M32,43Q38,40 44,43" fill="none" stroke="#2d1910" stroke-width="2.2" stroke-linecap="round"/><path d="M56,43Q62,40 67,43" fill="none" stroke="#2d1910" stroke-width="2.2" stroke-linecap="round"/><path d="M33,54Q40,50 44,54" fill="none" stroke="#0f172a" stroke-width="2.5" stroke-linecap="round"/><path d="M56,54Q60,50 67,54" fill="none" stroke="#0f172a" stroke-width="2.5" stroke-linecap="round"/><path d="M44,61Q50,65 56,61" fill="none" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/><circle cx="34" cy="62" r="5.5" fill="#ef4444" opacity="0.52"/><circle cx="66" cy="62" r="5.5" fill="#ef4444" opacity="0.52"/><rect x="30" y="70" width="40" height="25" rx="9" fill="#f59e0b"/><rect x="28" y="68" width="44" height="7" rx="3.5" fill="#1d4ed8"/></svg>
+        <div class="next-label">ONE DAY I WISH AISA HO 🌟</div>
+        <svg class="arr" viewBox="0 0 24 24" style="width:22px;height:22px;fill:#ff1493;"><path d="M8 5l8 7-8 7V5z"/></svg>
+      </button>
+    </div>
+    <div id="sl4" class="slide">
+      <p style="font-weight:800;color:#ff1493;">THIS MOVEMENT 🧿</p>
+      <img src="https://i.ibb.co/JjJQJWzM/file-00000000cd5c720cb78897b2c3f071b7.png" style="width:200px;border-radius:14px;">
+      <button class="next-chibi-btn" onclick="nextSlide()">
+        <svg viewBox="0 0 100 120" style="width:44px;height:auto;flex-shrink:0;"><ellipse cx="50" cy="114" rx="18" ry="4" fill="rgba(0,0,0,0.13)"/><circle cx="50" cy="53" r="20" fill="#ffdec2"/><path d="M26,43C32,31 45,34 50,37C55,34 68,31 74,43Z" fill="#2d1910"/><path d="M34,45Q38,42 44,44" fill="none" stroke="#2d1910" stroke-width="2.2" stroke-linecap="round"/><path d="M56,44Q62,42 67,45" fill="none" stroke="#2d1910" stroke-width="2.2" stroke-linecap="round"/><path d="M35,53C38,56 43,56 46,53" fill="none" stroke="#0f172a" stroke-width="2.5" stroke-linecap="round"/><circle cx="59" cy="53" r="3.5" fill="#0f172a"/><circle cx="60" cy="51.5" r="1.2" fill="#fff"/><path d="M44,62Q50,66 56,62" fill="none" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/><circle cx="34" cy="62" r="7" fill="#ef4444" opacity="0.58"/><circle cx="66" cy="62" r="7" fill="#ef4444" opacity="0.58"/><rect x="30" y="70" width="40" height="25" rx="9" fill="#f59e0b"/><rect x="28" y="68" width="44" height="7" rx="3.5" fill="#1d4ed8"/></svg>
+        <div class="next-label">😳</div>
+        <svg class="arr" viewBox="0 0 24 24" style="width:22px;height:22px;fill:#ff1493;"><path d="M8 5l8 7-8 7V5z"/></svg>
+      </button>
+    </div>
+    <div id="sl5" class="slide">
+      <p style="font-weight:800;color:#ff1493;">MAZAK 💀</p>
+      <img src="https://i.ibb.co/JWd43pwk/file-000000007a90720aa9d866a3e5cd0768.png" style="width:200px;border-radius:14px;">
+      <button class="next-chibi-btn" onclick="nextSlide()">
+        <svg viewBox="0 0 100 120" style="width:44px;height:auto;flex-shrink:0;"><ellipse cx="50" cy="114" rx="18" ry="4" fill="rgba(0,0,0,0.13)"/><circle cx="50" cy="53" r="20" fill="#ffdec2"/><path d="M26,43C32,31 45,34 50,37C55,34 68,31 74,43Z" fill="#2d1910"/><path d="M32,42Q38,39 44,42" fill="none" stroke="#2d1910" stroke-width="2.2" stroke-linecap="round"/><path d="M56,42Q62,39 67,42" fill="none" stroke="#2d1910" stroke-width="2.2" stroke-linecap="round"/><circle cx="41" cy="53" r="4" fill="#0f172a"/><circle cx="59" cy="53" r="4" fill="#0f172a"/><circle cx="42.5" cy="51" r="1.4" fill="#fff"/><circle cx="60.5" cy="51" r="1.4" fill="#fff"/><path d="M42,59Q50,68 58,59Z" fill="#6b1818"/><circle cx="33" cy="62" r="5.5" fill="#ef4444" opacity="0.42"/><circle cx="67" cy="62" r="5.5" fill="#ef4444" opacity="0.42"/><rect x="30" y="70" width="40" height="25" rx="9" fill="#f59e0b"/><rect x="28" y="68" width="44" height="7" rx="3.5" fill="#1d4ed8"/></svg>
+        <div class="next-label">HAPPY BIRTHDAY!! 🎂</div>
+        <svg class="arr" viewBox="0 0 24 24" style="width:22px;height:22px;fill:#ff1493;"><path d="M8 5l8 7-8 7V5z"/></svg>
+      </button>
+    </div>
+    <div id="sl6" class="slide">
+      <p style="font-weight:800;color:#ff1493;">HAPPY BIRTHDAY DARLING 🥳</p>
+      <img src="https://i.ibb.co/LD4zZ753/1779642844623.png" style="width:200px;border-radius:14px;">
+      <div style="display:flex;justify-content:center;align-items:flex-end;gap:4px;margin:9px 0 3px;">
+        <svg viewBox="0 0 100 120" style="width:55px;height:auto;"><ellipse cx="50" cy="114" rx="18" ry="4" fill="rgba(0,0,0,0.13)"/><circle cx="50" cy="53" r="20" fill="#ffdec2"/><path d="M26,43C32,31 45,34 50,37C55,34 68,31 74,43Z" fill="#2d1910"/><path d="M32,42Q38,39 44,42" fill="none" stroke="#2d1910" stroke-width="2.2" stroke-linecap="round"/><path d="M56,42Q62,39 67,42" fill="none" stroke="#2d1910" stroke-width="2.2" stroke-linecap="round"/><circle cx="41" cy="53" r="3.8" fill="#0f172a"/><circle cx="59" cy="53" r="3.8" fill="#0f172a"/><circle cx="42.5" cy="51" r="1.3" fill="#fff"/><circle cx="60.5" cy="51" r="1.3" fill="#fff"/><path d="M43,60Q50,67 57,60Z" fill="#6b1818"/><circle cx="34" cy="62" r="5" fill="#ef4444" opacity="0.38"/><circle cx="66" cy="62" r="5" fill="#ef4444" opacity="0.38"/><rect x="30" y="70" width="40" height="25" rx="9" fill="#f59e0b"/><rect x="28" y="68" width="44" height="7" rx="3.5" fill="#1d4ed8"/></svg>
+        <div style="font-size:30px;">🎂</div>
+        <svg viewBox="0 0 100 120" style="width:55px;height:auto;"><ellipse cx="50" cy="114" rx="18" ry="4" fill="rgba(0,0,0,0.13)"/><path d="M20,50Q12,78 20,100Q30,104 32,93Z" fill="#4a2711"/><path d="M80,50Q88,78 80,100Q70,104 68,93Z" fill="#4a2711"/><path d="M22,46C22,23 78,23 78,46C78,67 22,67 22,46Z" fill="#5c3116"/><path d="M34,72L66,72L71,95L29,95Z" fill="#fbbf24"/><rect x="25" y="92" width="50" height="5" rx="2.5" fill="#f8fafc"/><rect x="38" y="97" width="7" height="7" fill="#ffdec2"/><rect x="55" y="97" width="7" height="7" fill="#ffdec2"/><rect x="35" y="102" width="11" height="10" rx="2" fill="#06b6d4"/><rect x="54" y="102" width="11" height="10" rx="2" fill="#06b6d4"/><circle cx="50" cy="52" r="20" fill="#ffdec2"/><path d="M27,43C33,33 45,33 50,38C55,33 67,33 73,43Z" fill="#5c3116"/><path d="M34,53Q40,49 44,53" fill="none" stroke="#0f172a" stroke-width="2.5" stroke-linecap="round"/><path d="M56,53Q60,49 66,53" fill="none" stroke="#0f172a" stroke-width="2.5" stroke-linecap="round"/><path d="M44,61Q50,66 56,61" fill="none" stroke="#111827" stroke-width="2" stroke-linecap="round"/><circle cx="33" cy="61" r="6" fill="#f43f5e" opacity="0.48"/><circle cx="67" cy="61" r="6" fill="#f43f5e" opacity="0.48"/><rect x="29" y="68" width="42" height="7" rx="3.5" fill="#db2777"/></svg>
+      </div>
+      <div style="background:white;border:2px solid #ff1493;border-radius:13px;padding:5px 13px;font-size:13px;color:#ff1493;font-weight:800;display:inline-block;margin:3px 0;box-shadow:0 3px 10px rgba(255,20,147,0.18);">🎉 HAPPY BIRTHDAY PRACHI! 🎉</div>
+      <button class="next-chibi-btn" onclick="nextSlide()">
+        <svg viewBox="0 0 100 120" style="width:40px;height:auto;flex-shrink:0;"><ellipse cx="50" cy="114" rx="18" ry="4" fill="rgba(0,0,0,0.13)"/><circle cx="50" cy="53" r="20" fill="#ffdec2"/><path d="M26,43C32,31 45,34 50,37C55,34 68,31 74,43Z" fill="#2d1910"/><circle cx="41" cy="53" r="3.5" fill="#0f172a"/><circle cx="59" cy="53" r="3.5" fill="#0f172a"/><path d="M44,61Q50,66 56,61" fill="none" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/><circle cx="34" cy="62" r="5" fill="#ef4444" opacity="0.32"/><rect x="30" y="70" width="40" height="25" rx="9" fill="#f59e0b"/><rect x="28" y="68" width="44" height="7" rx="3.5" fill="#1d4ed8"/></svg>
+        <div class="next-label" style="font-size:12px;">FINAL PAGE 🎀</div>
+        <svg class="arr" viewBox="0 0 24 24" style="width:22px;height:22px;fill:#ff1493;"><path d="M8 5l8 7-8 7V5z"/></svg>
+      </button>
+    </div>
+    <div id="sl7" class="slide">
+      <div id="over-page">
+        <div class="roses">🌹🌸🌺🌹🌸🌺🌹</div>
+        <div class="over-title">It's Over... 🎀</div>
+        <div class="hearts-row">❤️ 💕 🌹 💖 🌸 💗 ❤️</div>
+        <div class="couple-row">
+          <svg viewBox="0 0 100 120" style="width:58px;height:auto;filter:drop-shadow(0 5px 12px rgba(255,20,147,0.18));"><ellipse cx="50" cy="114" rx="18" ry="4" fill="rgba(0,0,0,0.13)"/><circle cx="50" cy="53" r="20" fill="#ffdec2"/><path d="M26,43C32,31 45,34 50,37C55,34 68,31 74,43Z" fill="#2d1910"/><path d="M32,42Q38,40 44,43" fill="none" stroke="#2d1910" stroke-width="2.2" stroke-linecap="round"/><path d="M56,42Q62,40 67,43" fill="none" stroke="#2d1910" stroke-width="2.2" stroke-linecap="round"/><path d="M35,53C38,56 43,56 46,53" fill="none" stroke="#0f172a" stroke-width="2.5" stroke-linecap="round"/><circle cx="59" cy="53" r="3.5" fill="#0f172a"/><circle cx="60" cy="51.5" r="1.2" fill="#fff"/><path d="M43,61Q50,67 57,61" fill="none" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/><circle cx="34" cy="62" r="5" fill="#ef4444" opacity="0.38"/><circle cx="66" cy="62" r="5" fill="#ef4444" opacity="0.38"/><rect x="30" y="70" width="40" height="25" rx="9" fill="#f59e0b"/><rect x="28" y="68" width="44" height="7" rx="3.5" fill="#1d4ed8"/><rect x="68" y="75" width="20" height="9" rx="4.5" fill="#ffdec2"/></svg>
+          <div style="font-size:20px;margin-bottom:4px;">🤝❤️</div>
+          <svg viewBox="0 0 100 120" style="width:58px;height:auto;filter:drop-shadow(0 5px 12px rgba(255,20,147,0.18));"><ellipse cx="50" cy="114" rx="18" ry="4" fill="rgba(0,0,0,0.13)"/><path d="M20,50Q12,78 20,100Q30,104 32,93Z" fill="#4a2711"/><path d="M80,50Q88,78 80,100Q70,104 68,93Z" fill="#4a2711"/><path d="M22,46C22,23 78,23 78,46C78,67 22,67 22,46Z" fill="#5c3116"/><path d="M34,72L66,72L71,95L29,95Z" fill="#fbbf24"/><rect x="25" y="92" width="50" height="5" rx="2.5" fill="#f8fafc"/><rect x="35" y="102" width="11" height="10" rx="2" fill="#06b6d4"/><rect x="54" y="102" width="11" height="10" rx="2" fill="#06b6d4"/><circle cx="50" cy="52" r="20" fill="#ffdec2"/><path d="M27,43C33,33 45,33 50,38C55,33 67,33 73,43Z" fill="#5c3116"/><path d="M33,53Q39,49 43,53" fill="none" stroke="#0f172a" stroke-width="2.5" stroke-linecap="round"/><path d="M57,53Q61,49 67,53" fill="none" stroke="#0f172a" stroke-width="2.5" stroke-linecap="round"/><path d="M44,61Q50,66 56,61" fill="none" stroke="#111827" stroke-width="2" stroke-linecap="round"/><circle cx="33" cy="61" r="6.5" fill="#f43f5e" opacity="0.58"/><circle cx="67" cy="61" r="6.5" fill="#f43f5e" opacity="0.58"/><rect x="29" y="68" width="42" height="7" rx="3.5" fill="#db2777"/><rect x="12" y="75" width="20" height="9" rx="4.5" fill="#ffdec2"/></svg>
+        </div>
+        <div style="font-size:13px;font-weight:800;color:#ff1493;margin:3px 0;">Bye bye 👋</div>
+        <div class="guldasta">💐🌷💐</div>
+        <div class="wish-card">Bahut bahut bahut bahut<br><span style="font-size:15px;">🎂 Happy Birthday 🎂</span><br>Meri pyaari Prachi ko!<br>Jeeti reh, muskurati reh 🌟</div>
+        <div class="pills">
+          <div class="pill">&lt;3 Have a Nice Day &lt;3</div>
+          <div class="pill">Best Wishes 💫</div>
+          <div class="pill">Stay Blessed 🌸</div>
+          <div class="pill">Keep Smiling 😊</div>
+          <div class="pill">Khush Reh Sada 🌺</div>
+        </div>
+        <div class="wish-card" style="font-size:12px;padding:8px 12px;">🌹 Tere liye yahi dua hai ki tu hamesha<br>khush rahe aur thodi pagal bhi rahe! 🌹</div>
+        <div class="stickers">
+          <div class="stk"><svg viewBox="0 0 100 100" style="width:40px;height:40px;"><circle cx="50" cy="50" r="45" fill="#ffdec2"/><path d="M28,38Q50,28 72,38C68,35 60,32 50,37C40,32 32,35 28,38Z" fill="#2d1910"/><circle cx="35" cy="48" r="7" fill="#0f172a"/><circle cx="65" cy="48" r="7" fill="#0f172a"/><circle cx="37" cy="45" r="2.5" fill="#fff"/><circle cx="67" cy="45" r="2.5" fill="#fff"/><path d="M38,65Q50,75 62,65Z" fill="#6b1818"/><circle cx="30" cy="65" r="8" fill="#ef4444" opacity="0.42"/><circle cx="70" cy="65" r="8" fill="#ef4444" opacity="0.42"/></svg><span>Khushi 😁</span></div>
+          <div class="stk"><svg viewBox="0 0 100 100" style="width:40px;height:40px;"><circle cx="50" cy="50" r="45" fill="#ffdec2"/><path d="M28,40Q50,30 72,40C68,36 60,33 50,38C40,33 32,36 28,40Z" fill="#5c3116"/><path d="M30,47Q37,43 43,47" fill="none" stroke="#0f172a" stroke-width="2.5" stroke-linecap="round"/><path d="M57,47Q63,43 70,47" fill="none" stroke="#0f172a" stroke-width="2.5" stroke-linecap="round"/><path d="M40,63Q50,68 60,63" fill="none" stroke="#111827" stroke-width="2" stroke-linecap="round"/><circle cx="28" cy="62" r="9" fill="#f43f5e" opacity="0.58"/><circle cx="72" cy="62" r="9" fill="#f43f5e" opacity="0.58"/></svg><span>Sharma gayi 😳</span></div>
+          <div class="stk"><svg viewBox="0 0 100 100" style="width:40px;height:40px;"><circle cx="50" cy="50" r="45" fill="#ffdec2"/><path d="M28,38Q50,28 72,38C68,35 60,32 50,37C40,32 32,35 28,38Z" fill="#2d1910"/><path d="M32,37Q38,34 44,37" fill="none" stroke="#2d1910" stroke-width="2.2" stroke-linecap="round"/><path d="M56,36Q62,33 68,36" fill="none" stroke="#2d1910" stroke-width="2.2" stroke-linecap="round"/><path d="M30,48C34,53 41,53 45,48" fill="none" stroke="#0f172a" stroke-width="3" stroke-linecap="round"/><circle cx="65" cy="49" r="7" fill="#0f172a"/><circle cx="67" cy="46" r="2.5" fill="#fff"/><path d="M40,63Q50,58 58,65" fill="none" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round"/><circle cx="70" cy="64" r="7" fill="#ef4444" opacity="0.32"/></svg><span>Aankhmaara 😉</span></div>
+          <div class="stk"><svg viewBox="0 0 100 100" style="width:40px;height:40px;"><circle cx="50" cy="50" r="45" fill="#ffdec2"/><path d="M28,40Q50,30 72,40C68,36 60,33 50,38C40,33 32,36 28,40Z" fill="#5c3116"/><path d="M30,47Q38,42 44,47" fill="none" stroke="#0f172a" stroke-width="2.5" stroke-linecap="round"/><path d="M56,47Q62,42 70,47" fill="none" stroke="#0f172a" stroke-width="2.5" stroke-linecap="round"/><path d="M38,62Q50,70 62,62Z" fill="#6b1818"/><circle cx="27" cy="61" r="8" fill="#f43f5e" opacity="0.52"/><circle cx="73" cy="61" r="8" fill="#f43f5e" opacity="0.52"/></svg><span>Khushi 🥳</span></div>
+        </div>
+        <div class="roses" style="animation-delay:0.5s;">🌺🌹🌸🌷🌸🌹🌺</div>
+        <div class="over-sign">— Aapka Agyakari GAWAR 🤓💕<br><span style="font-size:11px;">jo thoda pagal hai kisi..... 😅</span></div>
+        <div class="suit-line">New suit me kya lg rhi hogi...... U R LA' 👀✨</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<audio id="bgm" loop><source src="https://www.image2url.com/r2/default/audio/1779681864998-ae471e4c-9ab9-4ae6-9eda-064458ef3248.mp3" type="audio/mpeg"></audio>
+<audio id="sfx-scare"><source src="https://www.image2url.com/r2/default/audio/1779682217574-284d33c7-67c6-4a76-a358-6226c38c518d.mp3" type="audio/mpeg"></audio>
+<audio id="sfx-blow"><source src="https://www.image2url.com/r2/default/audio/1779682414992-c08827df-35b0-441c-8847-bbe243ddca05.mp3" type="audio/mpeg"></audio>
+<audio id="sfx-next"><source src="https://www.image2url.com/r2/default/audio/1779682764404-38090571-b1a8-4e05-a788-b2a9b40322de.mp3" type="audio/mpeg"></audio>
+
+<script>
+let uAC=null;
+function iUA(){if(uAC)return;try{uAC=new(window.AudioContext||window.webkitAudioContext)();}catch(e){}}
+function rUA(){if(uAC&&uAC.state==='suspended')uAC.resume().catch(()=>{});}
+function playPop(f=500,v=0.08,d=0.07){if(!uAC)return;try{const t=uAC.currentTime,o=uAC.createOscillator(),g=uAC.createGain();o.type='sine';o.frequency.setValueAtTime(f,t);o.frequency.exponentialRampToValueAtTime(f*0.4,t+d);o.connect(g);g.connect(uAC.destination);g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(v,t+0.01);g.gain.exponentialRampToValueAtTime(0.001,t+d);o.start(t);o.stop(t+d);}catch(e){}}
+function playChime(){if(!uAC)return;[880,1108,1320].forEach((f,i)=>setTimeout(()=>playPop(f,0.06,0.14),i*75));}
+function playWhoosh(){if(!uAC)return;try{const t=uAC.currentTime,sz=uAC.sampleRate*0.18;const buf=uAC.createBuffer(1,sz,uAC.sampleRate);const d=buf.getChannelData(0);for(let i=0;i<sz;i++)d[i]=Math.random()*2-1;const n=uAC.createBufferSource();n.buffer=buf;const fl=uAC.createBiquadFilter();fl.type='bandpass';fl.frequency.setValueAtTime(700,t);fl.Q.setValueAtTime(1.2,t);const g=uAC.createGain();g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(0.04,t+0.06);g.gain.exponentialRampToValueAtTime(0.001,t+0.18);n.connect(fl);fl.connect(g);g.connect(uAC.destination);n.start(t);}catch(e){}}
+
+const bgm=document.getElementById('bgm');
+const sfxScare=document.getElementById('sfx-scare');
+const sfxBlow=document.getElementById('sfx-blow');
+const sfxNext=document.getElementById('sfx-next');
+
+function goScene(n){
+  iUA();rUA();
+  if(n!==7)playWhoosh();
+  document.querySelectorAll('.scene').forEach(s=>s.classList.remove('active'));
+  document.getElementById('scene'+n).classList.add('active');
+  if(n===3)initScene3();
+  if(n===6)initScene6();
+  if(n===7){bgm.pause();startChibiAnim();}
+  if(n===8)bgm.play().catch(()=>{});
+}
+function startExp(yes){iUA();rUA();bgm.play().catch(()=>{});playPop(600,0.07,0.06);yes?goScene(2):showScare();}
+function showScare(){
+  const ov=document.getElementById('scare-overlay');
+  ov.style.display='block';
+  sfxScare.currentTime=0;sfxScare.play().catch(()=>{});
+  setTimeout(()=>{ov.style.display='none';sfxScare.pause();sfxScare.currentTime=0;},2000);
+}
+
+/* SCENE 2 BANDAR:
+   0ms   → gussa face + shake
+   400ms → bubble: "Bandar thodi na hu! 😤"
+   1800ms→ bubble: "DAYAN... GAWAR hu me!! 😤"
+   3400ms→ reset */
+let aT1=null,aT2=null,aT3=null;
+function wrongPass(){
+  clearTimeout(aT1);clearTimeout(aT2);clearTimeout(aT3);
+  iUA();rUA();
+  const ebl=document.getElementById('eb-l'),ebr=document.getElementById('eb-r');
+  const eyl=document.getElementById('ey-l'),eyr=document.getElementById('ey-r');
+  const mo=document.getElementById('mo');
+  const bub=document.getElementById('anger-bub'),txt=document.getElementById('anger-txt');
+  bub.style.display='none';bub.classList.remove('show');txt.textContent='';
+  if(ebl)ebl.setAttribute('d','M29,47Q37,42 43,46');
+  if(ebr)ebr.setAttribute('d','M57,46Q63,42 71,47');
+  if(eyl){eyl.setAttribute('cy','54');eyl.setAttribute('r','2.8');}
+  if(eyr){eyr.setAttribute('cy','54');eyr.setAttribute('r','2.8');}
+  if(mo){mo.setAttribute('d','M44,65Q50,60 56,65');mo.setAttribute('stroke','#c2185b');}
+  const con=document.querySelector('.container');
+  con.classList.remove('c-shake');void con.offsetWidth;con.classList.add('c-shake');
+  setTimeout(()=>con.classList.remove('c-shake'),500);
+  aT1=setTimeout(()=>{playPop(280,0.1,0.09);txt.textContent='Bandar thodi na hu! 😤';bub.style.display='block';bub.classList.remove('show');void bub.offsetWidth;bub.classList.add('show');},400);
+  aT2=setTimeout(()=>{playPop(220,0.08,0.09);txt.textContent='DAYAN... GAWAR hu me!! 😤';},1800);
+  aT3=setTimeout(()=>{bub.style.display='none';bub.classList.remove('show');txt.textContent='';if(ebl)ebl.setAttribute('d','M32,45Q38,40 44,44');if(ebr)ebr.setAttribute('d','M56,42Q62,39 68,43');if(eyl){eyl.setAttribute('cy','53');eyl.setAttribute('r','3.5');}if(eyr){eyr.setAttribute('cy','53');eyr.setAttribute('r','3.5');}if(mo){mo.setAttribute('d','M46,62Q50,65 54,62');mo.setAttribute('stroke','#1e293b');}},3400);
+}
+function rightPass(){clearTimeout(aT1);clearTimeout(aT2);clearTimeout(aT3);document.getElementById('anger-bub').style.display='none';document.getElementById('anger-txt').textContent='';goScene(3);}
+
+let blown=false;
+function initScene3(){
+  blown=false;
+  const cb=document.getElementById('cake-boy');
+  cb.style.transform='scaleX(-1)';
+  setTimeout(()=>{cb.style.transform='scaleX(1)';},3000);
+  setTimeout(()=>{document.getElementById('blow-hint').style.opacity='1';},3200);
+}
+function blowCandle(){
+  if(blown)return;blown=true;
+  iUA();playPop(880,0.12,0.16);
+  sfxBlow.play().catch(()=>{});
+  document.getElementById('candle').innerText='💨';
+  document.getElementById('blow-msg').innerText='Yaaay! 👏';
+  document.getElementById('blow-hint').style.opacity='0';
+  setTimeout(()=>{goScene(4);},1800);
+}
+function fakeGift(){showScare();setTimeout(()=>{goScene(6);},2100);}
+function initScene6(){const f=document.getElementById('flower');f.style.animation='none';void f.offsetWidth;f.style.animation='flowerPop 0.6s cubic-bezier(0.175,0.885,0.32,1.275) forwards';}
+let curSlide=1;
+function startGallery(){iUA();rUA();playChime();document.getElementById('lv').style.display='none';document.getElementById('gv').style.display='block';}
+function nextSlide(){iUA();rUA();sfxNext.currentTime=0;sfxNext.play().catch(()=>{});playChime();document.getElementById('sl'+curSlide).classList.remove('active');curSlide++;document.getElementById('sl'+curSlide).classList.add('active');}
+</script>
+
+<!-- CHIBI AUDIO ENGINE -->
+<script>
+let cACtx=null;
+function initCA(){if(cACtx)return;try{cACtx=new(window.AudioContext||window.webkitAudioContext)();}catch(e){}}
+function resumeCA(){if(cACtx&&cACtx.state==='suspended')cACtx.resume().catch(()=>{});}
+function cNote(f,d,v=0.12){if(!cACtx)return;try{const n=cACtx.currentTime,o=cACtx.createOscillator(),g=cACtx.createGain();o.type='sine';o.frequency.setValueAtTime(f,n);o.connect(g);g.connect(cACtx.destination);g.gain.setValueAtTime(0,n);g.gain.linearRampToValueAtTime(v,n+0.015);g.gain.exponentialRampToValueAtTime(0.001,n+d);o.start(n);o.stop(n+d);}catch(e){}}
+function cStep(){if(!cACtx)return;try{const n=cACtx.currentTime,o=cACtx.createOscillator(),g=cACtx.createGain();o.type='triangle';o.frequency.setValueAtTime(110,n);o.frequency.exponentialRampToValueAtTime(10,n+0.07);o.connect(g);g.connect(cACtx.destination);g.gain.setValueAtTime(0.04,n);g.gain.exponentialRampToValueAtTime(0.001,n+0.07);o.start(n);o.stop(n+0.07);}catch(e){}}
+function cHii(){if(!cACtx)return;try{const n=cACtx.currentTime;[880,1046].forEach((f,i)=>{const t=n+i*0.08,o=cACtx.createOscillator(),g=cACtx.createGain();o.type='sine';o.frequency.setValueAtTime(f,t);o.connect(g);g.connect(cACtx.destination);g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(0.05,t+0.01);g.gain.exponentialRampToValueAtTime(0.001,t+0.07);o.start(t);o.stop(t+0.08);});}catch(e){}}
+function cSwoosh(){if(!cACtx)return;try{const n=cACtx.currentTime,sz=cACtx.sampleRate*0.3,buf=cACtx.createBuffer(1,sz,cACtx.sampleRate),d=buf.getChannelData(0);for(let i=0;i<sz;i++)d[i]=Math.random()*2-1;const ns=cACtx.createBufferSource();ns.buffer=buf;const fl=cACtx.createBiquadFilter();fl.type='lowpass';fl.Q.setValueAtTime(3,n);fl.frequency.setValueAtTime(300,n);fl.frequency.exponentialRampToValueAtTime(1200,n+0.15);fl.frequency.exponentialRampToValueAtTime(300,n+0.3);const g=cACtx.createGain();g.gain.setValueAtTime(0,n);g.gain.linearRampToValueAtTime(0.04,n+0.1);g.gain.exponentialRampToValueAtTime(0.001,n+0.3);ns.connect(fl);fl.connect(g);g.connect(cACtx.destination);ns.start(n);}catch(e){}}
+function cKiss(){if(!cACtx)return;try{const n=cACtx.currentTime,o=cACtx.createOscillator(),g=cACtx.createGain();o.type='sine';o.frequency.setValueAtTime(1300,n);o.frequency.exponentialRampToValueAtTime(120,n+0.08);o.connect(g);g.connect(cACtx.destination);g.gain.setValueAtTime(0,n);g.gain.linearRampToValueAtTime(0.12,n+0.015);g.gain.exponentialRampToValueAtTime(0.001,n+0.08);o.start(n);o.stop(n+0.08);}catch(e){}}
+function cKick(){if(!cACtx)return;try{const n=cACtx.currentTime,o=cACtx.createOscillator(),g=cACtx.createGain();o.type='triangle';o.frequency.setValueAtTime(140,n);o.frequency.exponentialRampToValueAtTime(25,n+0.18);o.connect(g);g.connect(cACtx.destination);g.gain.setValueAtTime(0.35,n);g.gain.exponentialRampToValueAtTime(0.001,n+0.18);o.start(n);o.stop(n+0.18);}catch(e){}}
+function cCollar(){if(!cACtx)return;try{const n=cACtx.currentTime,o=cACtx.createOscillator(),g=cACtx.createGain();o.type='triangle';o.frequency.setValueAtTime(250,n);o.frequency.linearRampToValueAtTime(550,n+0.1);o.frequency.linearRampToValueAtTime(180,n+0.25);o.connect(g);g.connect(cACtx.destination);g.gain.setValueAtTime(0.08,n);g.gain.exponentialRampToValueAtTime(0.001,n+0.25);o.start(n);o.stop(n+0.25);}catch(e){}}
+const CAE=[
+  {t:0.0,f:()=>cNote(392,0.5)},{t:0.4,f:cStep},{t:0.8,f:()=>cNote(440,0.5)},{t:0.8,f:cStep},
+  {t:1.2,f:cStep},{t:1.6,f:()=>cNote(493.88,0.5)},{t:1.6,f:cStep},{t:2.0,f:cStep},
+  {t:2.4,f:()=>cNote(587.33,0.9)},{t:2.4,f:cStep},{t:2.8,f:cStep},{t:3.5,f:()=>cNote(493.88,0.5)},
+  {t:3.5,f:cHii},{t:4.2,f:()=>cNote(440,0.5)},{t:5.0,f:()=>cNote(369.99,0.5)},{t:5.1,f:cStep},
+  {t:5.3,f:cStep},{t:5.5,f:cStep},{t:5.7,f:cStep},{t:5.8,f:()=>cNote(440,0.5)},
+  {t:6.6,f:()=>cNote(587.33,0.9)},{t:7.5,f:cSwoosh},{t:7.8,f:()=>cNote(659.25,0.5)},
+  {t:8.5,f:()=>cNote(587.33,0.5)},{t:11.0,f:()=>cNote(493.88,0.4)},{t:11.5,f:()=>cNote(783.99,0.9)},
+  {t:11.5,f:cKiss},{t:12.8,f:()=>cNote(659.25,0.5)},{t:13.2,f:cStep},{t:13.5,f:()=>cNote(587.33,0.5)},
+  {t:13.5,f:cStep},{t:13.8,f:cStep},{t:14.1,f:cStep},{t:14.2,f:()=>cNote(493.88,0.5)},
+  {t:16.0,f:()=>cNote(523.25,0.5)},{t:17.5,f:()=>cNote(587.33,0.5)},{t:17.5,f:()=>cNote(880,0.5,0.08)},
+  {t:19.0,f:()=>cNote(659.25,0.9)},{t:20.0,f:()=>cNote(880,0.5,0.08)},{t:21.0,f:()=>cNote(783.99,0.5)},
+  {t:22.0,f:()=>cNote(880,0.5,0.08)},{t:23.5,f:()=>cNote(880,0.5)},{t:24.8,f:cKiss},
+  {t:26.0,f:()=>cNote(987.77,1.5)},{t:26.4,f:cSwoosh},{t:27.2,f:cKick},{t:31.2,f:cCollar},
+];
+CAE.sort((a,b)=>a.t-b.t);
+function fireCA(c,p){if(!cACtx)return;CAE.forEach(e=>{if(p<e.t&&c>=e.t)e.f();});}
+</script>
+
+<!-- CHIBI RENDER ENGINE — total 38s -->
+<script>
+let ct=0,cp=false,clt=0;
+let bokeh,snow;
+class Bokeh{
+  constructor(cv){this.cv=cv;this.ctx=cv.getContext('2d');this.p=[];this.resize();this.init();window.addEventListener('resize',()=>this.resize());}
+  resize(){this.cv.width=this.cv.parentElement.clientWidth||360;this.cv.height=this.cv.parentElement.clientHeight||202;}
+  init(){this.p=[];for(let i=0;i<22;i++)this.p.push({x:Math.random()*this.cv.width,y:Math.random()*this.cv.height,r:Math.random()*26+7,sx:Math.random()*0.12-0.06,sy:-(Math.random()*0.14+0.04),o:Math.random()*0.2+0.07});}
+  draw(){const w=this.cv.parentElement.clientWidth||360,h=this.cv.parentElement.clientHeight||202;if(this.cv.width!==w||this.cv.height!==h){this.cv.width=w;this.cv.height=h;}this.ctx.clearRect(0,0,w,h);const g=this.ctx.createLinearGradient(0,0,w,h);g.addColorStop(0,'#f43f5e');g.addColorStop(0.85,'#ffedd5');g.addColorStop(1,'#ffedd5');this.ctx.fillStyle=g;this.ctx.fillRect(0,0,w,h);this.ctx.save();this.p.forEach(p=>{this.ctx.beginPath();this.ctx.arc(p.x,p.y,p.r,0,Math.PI*2);this.ctx.fillStyle=`rgba(255,255,255,${p.o})`;this.ctx.shadowBlur=10;this.ctx.shadowColor='rgba(255,255,255,0.28)';this.ctx.fill();p.x+=p.sx;p.y+=p.sy;if(p.y<-p.r){p.y=h+p.r;p.x=Math.random()*w;}});this.ctx.restore();}
+}
+class Snow{
+  constructor(cv){this.cv=cv;this.ctx=cv.getContext('2d');this.sf=[];this.ht=[];this.resize();this.initSF();window.addEventListener('resize',()=>this.resize());}
+  resize(){this.cv.width=this.cv.parentElement.clientWidth||360;this.cv.height=this.cv.parentElement.clientHeight||202;}
+  initSF(){for(let i=0;i<35;i++)this.sf.push({x:Math.random()*(this.cv.width||360),y:Math.random()*(this.cv.height||202),r:Math.random()*2+0.8,d:Math.random()*0.34+0.08,sw:Math.random()*2});}
+  burst(x,y,n=10){const cx=(x/100)*(this.cv.width||360),cy=(1-y/100)*(this.cv.height||202);for(let i=0;i<n;i++)this.ht.push({x:cx,y:cy,sz:Math.random()*9+5,vx:Math.random()*4-2,vy:-(Math.random()*4+1.5),a:1,col:`hsl(${Math.random()*30+340},100%,72%)`,rot:Math.random()*Math.PI*2,rs:Math.random()*0.12-0.06});}
+  draw(){const w=this.cv.parentElement.clientWidth||360,h=this.cv.parentElement.clientHeight||202;if(this.cv.width!==w||this.cv.height!==h){this.cv.width=w;this.cv.height=h;}this.ctx.clearRect(0,0,w,h);this.ctx.fillStyle='rgba(255,255,255,0.75)';this.sf.forEach(s=>{this.ctx.beginPath();this.ctx.arc(s.x,s.y,s.r,0,Math.PI*2);this.ctx.fill();s.y+=s.d*1.4;s.x+=Math.sin(s.sw)*0.45;s.sw+=0.01;if(s.y>h){s.y=-4;s.x=Math.random()*w;}});for(let i=this.ht.length-1;i>=0;i--){const p=this.ht[i];p.x+=p.vx;p.y+=p.vy;p.vy+=0.09;p.a-=0.011;p.rot+=p.rs;if(p.a<=0){this.ht.splice(i,1);continue;}this.ctx.save();this.ctx.translate(p.x,p.y);this.ctx.rotate(p.rot);this.ctx.globalAlpha=p.a;this.ctx.fillStyle=p.col;this.ctx.beginPath();this.ctx.moveTo(0,0);this.ctx.bezierCurveTo(-p.sz/2,-p.sz/2,-p.sz,p.sz/3,0,p.sz);this.ctx.bezierCurveTo(p.sz,p.sz/3,p.sz/2,-p.sz/2,0,0);this.ctx.fill();this.ctx.restore();}}
+}
+function startChibiAnim(){initCA();resumeCA();bokeh=new Bokeh(document.getElementById('bg-cv'));snow=new Snow(document.getElementById('fx-cv'));ct=0;cp=true;clt=performance.now();drawLoop();tick(performance.now());}
+function drawLoop(){if(bokeh)bokeh.draw();if(snow)snow.draw();requestAnimationFrame(drawLoop);}
+function tick(ts){
+  if(!cp)return;
+  const dt=Math.min((ts-clt)/1000,0.05);
+  const prev=ct;clt=ts;ct+=dt;
+  if(ct>=35){ct=35;cp=false;document.getElementById('open-letter-area').style.display='block';bgm.play().catch(()=>{});}
+  fireCA(ct,prev);renderC(ct);
+  if(cp)requestAnimationFrame(tick);
+}
+
+function renderC(t){
+  const boy=document.getElementById('cb'),girl=document.getElementById('cg');
+  const kleg=document.getElementById('kleg'),cam=document.getElementById('cam');
+  const bb=document.getElementById('bb'),gb=document.getElementById('gb');
+  const sk=document.getElementById('sk'),kl=document.getElementById('kl');
+  const ib=document.getElementById('ib'),sl=document.getElementById('sl'),fo=document.getElementById('fo');
+  bb.style.opacity=0;gb.style.opacity=0;sk.style.opacity=0;kl.style.opacity=0;ib.style.opacity=0;sl.style.opacity=0;fo.style.opacity=0;kleg.style.display='none';
+  let bx=24,by=15,bs=1,br=0,gx=64,gy=15,gr=0,kx=120,kr=0,cs=1,cx=0,cy2=0,cr=0;
+  let bWink=false,bDead=false,bMo='n',bLC=false,bBl=0.18;
+  let gHE=false,gMo='n',gBl=0.45,gEBa=0,gEBy=0;
+
+  if(t<5){
+    if(t<3){const p=t/3;bx=-20+44*p;gx=110+(64-110)*p;by=15+Math.abs(Math.sin(t*Math.PI*3))*3;gy=by;}
+    else{bx=24;gx=64;br=Math.sin((t-3)*Math.PI*1.5)*4;gr=-br;}
+    if(t>=3.2&&t<4.8){bb.style.opacity=0.95;bb.innerText='Hii...';bb.style.left=(bx+3)+'%';bb.style.top=(55-by)+'%';gb.style.opacity=0.95;gb.innerText='Hii...';gb.style.left=(gx+3)+'%';gb.style.top=(55-gy)+'%';}
+    cs=1+(t/5)*0.06;
+  }else if(t<11){
+    const s=t-5;cs=1.06;
+    if(s<2.5){const p=s/2.5;bx=24+17*p;by=15+Math.abs(Math.sin(s*Math.PI*4))*4.5;br=12;bMo='open';gx=64;}
+    else{bx=41;br=8;gx=45;gr=-8;if(s<4.2){gMo='surp';gBl=0.95;gEBa=18;gEBy=-2.5;bLC=true;}else{gHE=true;gBl=1.0;gEBa=-5;bLC=true;}const pr=(s-2.5)/3.5;cs=1.06+pr*0.12;cr=Math.sin(pr*Math.PI)*2;}
+  }else if(t<16){
+    const s=t-11;cs=1.16;
+    if(s<0.5){bx=41+(38-41)*(s/0.5);gx=45;gBl=0.6;}
+    else if(s<1.1){const p=(s-0.5)/0.6;bx=38+(44-38)*Math.sin(p*Math.PI);br=14*Math.sin(p*Math.PI);gx=45;gMo='surp';gBl=1.0;}
+    else{gx=45;gMo='surp';gBl=1.0;
+      if(s<2.0){bx=39;br=-4;bMo='smirk';}
+      else if(s<2.8){const p=(s-2.0)/0.8;bx=39+(115-39)*p;by=15+Math.abs(Math.sin(s*Math.PI*6))*4;br=-10;}
+      else{bx=115;}
+      if(s>=2.8){const p=(s-2.8)/1.2;gx=45+(115-45)*Math.min(1,p);gy=15+Math.abs(Math.sin(s*Math.PI*6))*4;gr=-10;gMo='frown';gEBa=-18;gEBy=1.5;gb.style.opacity=0.95;gb.innerText='Hey!! 💢';gb.style.left=(gx+2)+'%';gb.style.top=(55-gy)+'%';}
+    }
+  }else if(t<=35){
+    const s=t-16;bx=42;by=15;gx=115;
+    if(s<1.5){const p=s/1.5;bx=115+(42-115)*p;by=15+Math.abs(Math.sin(s*Math.PI*3))*3;}
+    else if(s<4.0){bx=42;bb.style.opacity=0.95;bb.innerText='Keep phone close to your face 📱';bb.style.left=(bx+7)+'%';bb.style.top=(55-by)+'%';}
+    else if(s<6.0){bx=42;bs=1.35;bb.style.opacity=0.95;bb.innerText='Little more... 😉';bb.style.left=(bx+7)+'%';bb.style.top=(52-by)+'%';}
+    else if(s<8.0){bx=42;bs=1.5;bb.style.opacity=0.95;bb.innerText='Little more... 🤫';bb.style.left=(bx+7)+'%';bb.style.top=(50-by)+'%';}
+    else if(s<9.0){bx=42;by=15;bs=1.3;bb.style.opacity=0.98;bb.innerText='5201314 💖';bb.style.left=(bx+7)+'%';bb.style.top=(55-by)+'%';}
+    else if(s<9.5){bx=42;by=12;bs=1.7;bMo='open';sk.style.opacity=1;cs=1.22+Math.sin(s*20)*0.015;if(snow)snow.burst(45,30,3);}
+    else if(s<10.0){bx=42;by=13;bs=1.5;bWink=true;bMo='smirk';}
+    else if(s<10.4){bx=42;by=13;bs=1.42;bMo='smirk';cs=1.12;}
+    else if(s<11.4){
+      kleg.style.display='block';const p=(s-10.4)/1.0;const ease=1-Math.pow(1-p,3);
+      kx=116+(38-116)*ease;kr=20-72*ease;bx=42;bs=1.45;
+      sl.style.opacity=Math.min(1,p*1.4);
+      kl.style.opacity=1;kl.style.left=Math.max(42,kx+5)+'%';kl.style.top=(34+Math.sin(p*Math.PI)*4)+'%';kl.style.transform=`rotate(${-18+p*12}deg) scale(${0.85+p*0.28})`;
+      if(s>=11.12){bDead=true;br=35+Math.sin(s*80)*6;by=10;bs=1.0;cx=Math.sin(s*95)*1.2;cy2=Math.cos(s*85)*0.9;ib.style.opacity=1;ib.style.transform=`translate(-50%,-50%) scale(${0.7+p*0.9}) rotate(${p*25}deg)`;}
+    }
+    else if(s<12.1){bx=48;by=2;br=90;bDead=true;bs=1.0;}
+    else{
+      /* ── GIRL 3 DIALOGUES (tight timing, no long pauses)
+         s=12.1→15  (2.9s): walk-in fast + "Tu to gya bete! 😤"
+         s=15→18    (3.0s): stands angry + "Bina meri permission ke kiss! 😡"
+         s=18→22    (4.0s): drags boy + "Chal tere ko btati hu! 😤" + fade
+      */
+      bx=48;by=2;br=90;bDead=true;
+      if(s<14.8){
+        // Part1 (2.7s): girl walks in naturally + "Tu to gya bete!"
+        const p=Math.min(1,(s-12.1)/2.7);
+        // smooth cubic ease-out for a natural slow-down on arrival
+        const ease=1-Math.pow(1-p,3);
+        gx=112+(34-112)*ease;
+        // gentler walking bounce
+        gy=15+Math.abs(Math.sin(s*Math.PI*4))*1.6;
+        gMo='surp';gEBa=-16;gEBy=1.5;
+        if(p>0.08){gb.style.opacity=0.98;gb.innerText='Tu to gya bete! 😤';gb.style.left=Math.min(80,gx+3)+'%';gb.style.top=(50-gy)+'%';}
+      }
+      else if(s<16.5){
+        // Part2 (1.7s): "Bina meri permission ke kiss!"
+        gx=34;gy=15;gMo='frown';gEBa=-18;gEBy=1.5;
+        gb.style.opacity=0.98;gb.innerText='Bina meri permission ke kiss! 😡';
+        gb.style.left='26%';gb.style.top='26%';
+      }
+      else{
+        // Part3 (2.5s): drag + "Chal tere ko btati hu!" + fade
+        const p=Math.min(1,(s-16.5)/2.5);
+        gx=34-72*p;bx=48-86*p;gy=15;
+        gMo='frown';gEBa=-18;gEBy=1.5;
+        if(p<0.55){gb.style.opacity=0.98;gb.innerText='Chal tere ko btati hu! 😤';gb.style.left=Math.min(78,gx+5)+'%';gb.style.top='26%';}
+        if(p>=0.45) fo.style.opacity=Math.min(1,(p-0.45)/0.55);
+      }
+    }
+  }
+
+  boy.style.left=bx+'%';boy.style.bottom=by+'%';boy.style.transform=`scale(${bs}) rotate(${br}deg)`;
+  girl.style.left=gx+'%';girl.style.bottom=gy+'%';girl.style.transform=`rotate(${gr}deg)`;
+  kleg.style.left=kx+'%';kleg.style.transform=`rotate(${kr}deg)`;
+  cam.style.transform=`scale(${cs}) translate(${cx}%,${cy2}%) rotate(${cr}deg)`;
+
+  const bEL=document.getElementById('bel2'),bER=document.getElementById('ber2'),bW=document.getElementById('bwink');
+  const bdl1=document.getElementById('bdl1'),bdl2=document.getElementById('bdl2'),bdr1=document.getElementById('bdr1'),bdr2=document.getElementById('bdr2');
+  const bmo=document.getElementById('bmo'),bhl=document.getElementById('bhl'),bhr=document.getElementById('bhr');
+  const bbl=document.getElementById('bbl'),bbr=document.getElementById('bbr');
+  if(bbl)bbl.setAttribute('opacity',bBl);if(bbr)bbr.setAttribute('opacity',bBl);
+  if(bDead){if(bEL)bEL.style.display='none';if(bER)bER.style.display='none';if(bW)bW.style.display='none';if(bhl)bhl.style.display='none';if(bhr)bhr.style.display='none';if(bdl1)bdl1.style.display='block';if(bdl2)bdl2.style.display='block';if(bdr1)bdr1.style.display='block';if(bdr2)bdr2.style.display='block';}
+  else if(bWink){if(bEL)bEL.style.display='none';if(bhl)bhl.style.display='none';if(bW)bW.style.display='block';if(bER)bER.style.display='block';if(bhr)bhr.style.display='block';if(bdl1)bdl1.style.display='none';if(bdl2)bdl2.style.display='none';if(bdr1)bdr1.style.display='none';if(bdr2)bdr2.style.display='none';}
+  else{if(bEL){bEL.style.display='block';bEL.setAttribute('r',bLC?'1.2':'3.5');bEL.setAttribute('cy',bLC?'55':'53');}if(bER)bER.style.display='block';if(bW)bW.style.display='none';if(bhl)bhl.style.display='block';if(bhr)bhr.style.display='block';if(bdl1)bdl1.style.display='none';if(bdl2)bdl2.style.display='none';if(bdr1)bdr1.style.display='none';if(bdr2)bdr2.style.display='none';}
+  if(bmo){if(bMo==='open'){bmo.setAttribute('d','M45,59Q50,65 55,59Z');bmo.setAttribute('fill','#6b1818');}else if(bMo==='smirk'){bmo.setAttribute('d','M46,60Q53,58 54,62');bmo.setAttribute('fill','none');}else{bmo.setAttribute('d','M45,61Q50,65 55,61');bmo.setAttribute('fill','none');}}
+  const gEL=document.getElementById('gel2'),gER=document.getElementById('ger2'),gHEel=document.getElementById('ghappy');
+  const gmel=document.getElementById('gmo'),gbl2=document.getElementById('gbl'),gbr2=document.getElementById('gbr');
+  const gebl=document.getElementById('gel'),gebr=document.getElementById('ger');
+  if(gbl2)gbl2.setAttribute('opacity',gBl);if(gbr2)gbr2.setAttribute('opacity',gBl);
+  if(gebl)gebl.style.transform=`translateY(${gEBy}px) rotate(${gEBa}deg)`;if(gebr)gebr.style.transform=`translateY(${gEBy}px) rotate(${-gEBa}deg)`;
+  if(gHE){if(gEL)gEL.style.display='none';if(gER)gER.style.display='none';if(gHEel)gHEel.style.display='block';}
+  else{if(gEL)gEL.style.display='block';if(gER)gER.style.display='block';if(gHEel)gHEel.style.display='none';}
+  if(gmel){if(gMo==='surp'){gmel.setAttribute('d','M47,61A3,3 0 1,1 53,61A3,3 0 1,1 47,61');gmel.setAttribute('fill','#6b1818');}else if(gMo==='frown'){gmel.setAttribute('d','M46,64Q50,59 54,64');gmel.setAttribute('fill','none');}else{gmel.setAttribute('d','M46,61Q50,64 54,61');gmel.setAttribute('fill','none');}}
+}
+</script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a014f092ce27b74b',t:'MTc3OTcxNjI5OA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a014fbb05edf5513',t:'MTc3OTcxNjc1Mw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
